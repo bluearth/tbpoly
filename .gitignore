@@ -1,0 +1,7 @@
+*.sqlite3
+*.log
+*.swp
+*.pyc
+db/*
+log/*
+!.gitignore

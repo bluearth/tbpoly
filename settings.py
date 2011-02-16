@@ -1,5 +1,15 @@
 # Django settings for tbpoly project.
 
+#################
+# Jangan diubah!
+#################
+import os
+import sys
+PROJECT_ROOT = os.path.dirname(__file__)
+################
+
+APP_NAME = 'tbpoly'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -11,8 +21,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'db/tbpoly.sqlite3',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -27,7 +37,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Asia/Jakarta'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -93,4 +103,22 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django_extensions',
+    'treebeard',
+    'tbbench',
+#   'polymorphic',
 )
+
+##################################################
+# Jangan merubah apapun dibawah ini 
+# (kecuali Anda yakin dengan apa yg Anda lakukan)
+##################################################
+
+# Tambahkan library pihak ke-3 ke PYTHONPATH
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib'))
+# Muat timpalan setting sesuai nilai environtment variable DJANGO_ENV_<APP_NAME> 
+if APP_NAME:
+    setting_name = os.environ.get('DJANGO_ENV_%s' % (APP_NAME.upper()), False)
+    if setting_name:
+        exec 'from config.settings.%s import *' % (setting_name)
+
